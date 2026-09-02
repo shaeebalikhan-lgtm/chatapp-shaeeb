@@ -1,24 +1,26 @@
+import "dotenv/config";
+
 import express from "express";
-import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-//CORS = Cross-Origin Resource Sharing.
-//cors = allows frontend ↔ backend communication.
-//Allow other websites/apps to talk to my backend.
 
 import { connectDB } from "./lib/db.js";
 import authRoute from "./routes/auth.route.js";
 import messageRoute from "./routes/message.route.js";
 import { app, server } from "./lib/socket.js";
 
-
-
-dotenv.config();
-
 const PORT = Number(process.env.PORT) || 5000;
+
+// ============================================
+// MIDDLEWARE
+// ============================================
 
 app.use(express.json());
 app.use(cookieParser());
+
+// ============================================
+// CORS
+// ============================================
 
 const allowedOrigins = [
   "http://localhost:3000",
@@ -28,20 +30,48 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
+      // Allow requests without an Origin header
+      // such as Postman/server-to-server requests.
+      if (!origin) {
+        return callback(null, true);
       }
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      console.log("Blocked CORS origin:", origin);
+
+      return callback(new Error("Not allowed by CORS"));
     },
+
     credentials: true,
   })
 );
 
+// ============================================
+// HEALTH CHECK
+// ============================================
+
+app.get("/", (req, res) => {
+  res.json({
+    success: true,
+    message: "ChatApp backend is running",
+  });
+});
+
+// ============================================
+// ROUTES
+// ============================================
+
 app.use("/auth/api", authRoute);
 app.use("/message/api", messageRoute);
 
-server.listen(PORT, async () => {
+// ============================================
+// START SERVER
+// ============================================
+
+server.listen(PORT, "0.0.0.0", async () => {
   try {
     await connectDB();
 
