@@ -49,6 +49,8 @@ app.use(
   })
 );
 
+console.log("CORS ALLOWED ORIGINS:", allowedOrigins);
+
 // ============================================
 // HEALTH CHECK
 // ============================================

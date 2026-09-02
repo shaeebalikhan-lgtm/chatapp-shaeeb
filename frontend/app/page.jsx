@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="min-h-[calc(100vh-64px)] bg-gradient-to-bg from-white via-zinc-50 to-zinc-100">
+    <main className="min-h-[calc(100vh-64px)] bg-gradient-to-b from-white via-zinc-50 to-zinc-100">
       {/* Hero Section */}
       <section className="mx-auto flex min-h-[calc(100vh-64px)] max-w-6xl items-center px-6 py-20">
         <div className="grid w-full items-center gap-16 md:grid-cols-2">
