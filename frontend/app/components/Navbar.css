@@ -1,0 +1,153 @@
+.navbar {
+  width: 100%;
+  height: 64px;
+
+  background: #120505;
+  border-bottom: 1px solid #2d1b1b;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-container {
+  width: 100%;
+  height: 100%;
+
+  padding: 0 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* =========================
+   Logo - LEFT
+========================= */
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+
+  color: #ffffff;
+  text-decoration: none;
+
+  font-size: 22px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.navbar-logo:hover {
+  color: #f3f4f6;
+}
+
+/* =========================
+   Actions - RIGHT
+========================= */
+
+.navbar-actions {
+  margin-left: auto;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Logged-in User */
+
+.navbar-user {
+  color: #d1d5db;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  white-space: nowrap;
+}
+
+/* Profile */
+
+.profile-btn {
+  padding: 8px 14px;
+
+  border: 1px solid #4b3030;
+  border-radius: 8px;
+
+  background: transparent;
+  color: #e5e7eb;
+
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  transition: all 0.2s ease;
+}
+
+.profile-btn:hover {
+  background: #241010;
+  border-color: #6b4545;
+}
+
+/* Logout */
+
+.logout-btn {
+  padding: 8px 14px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #ffffff;
+  color: #120505;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: #e5e7eb;
+}
+
+.logout-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 640px) {
+  .navbar {
+    height: 60px;
+  }
+
+  .navbar-container {
+    padding: 0 16px;
+  }
+
+  .navbar-logo {
+    font-size: 20px;
+  }
+
+  .navbar-user {
+    display: none;
+  }
+
+  .profile-btn {
+    display: none;
+  }
+
+  .navbar-actions {
+    gap: 8px;
+  }
+
+  .logout-btn {
+    padding: 7px 12px;
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,41 @@
+.message-content {
+  max-width: 65%;
+  padding: 10px 14px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px 14px 14px 4px;
+
+  color: #111827;
+  font-size: 14px;
+  line-height: 1.5;
+
+  word-break: break-word;
+  overflow: hidden;
+}
+
+.message-content img {
+  display: block;
+
+  width: auto;
+  max-width: 280px;
+  max-height: 350px;
+
+  height: auto;
+
+  margin-top: 8px;
+
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.message-box.current-user .message-content {
+  background: #111827;
+  color: #ffffff;
+  border-color: #111827;
+
+  border-radius: 14px 14px 4px 14px;
+}
+
+.message-box.current-user .message-content img {
+  margin-top: 8px;
+}

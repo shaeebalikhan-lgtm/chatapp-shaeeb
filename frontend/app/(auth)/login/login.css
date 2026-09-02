@@ -1,0 +1,241 @@
+/* Login.css */
+
+
+.login-page {
+  min-height: calc(100vh - 64px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px 20px;
+
+  background: #f9fafb;
+}
+
+/* =========================
+   Login Container
+========================= */
+
+.login-container {
+  width: 100%;
+  max-width: 420px;
+
+  margin: 60px auto;
+  padding: 35px;
+
+  box-sizing: border-box;
+
+  background:#ffffff;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  margin-top: 10%;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================
+   Header
+========================= */
+
+.login-container header {
+  margin-bottom: 30px;
+
+  text-align: center;
+
+  color: #120505;
+
+  font-size: 30px;
+  font-weight: 700;
+}
+
+/* =========================
+   Form
+========================= */
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form label {
+  margin-bottom: 8px;
+
+  color: #374151;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.login-form input {
+  width: 100%;
+
+  padding: 12px 14px;
+  margin-bottom: 20px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+
+  outline: none;
+
+  background: #ffffff;
+  color: #111827;
+
+  font-size: 15px;
+
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.login-form input:focus {
+  border-color: #120505;
+
+  box-shadow: 0 0 0 3px rgba(18, 5, 5, 0.1);
+}
+
+.login-form input::placeholder {
+  color: #9ca3af;
+}
+
+/* =========================
+   Password
+========================= */
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-wrapper input {
+  padding-right: 50px;
+}
+
+.toggle-password-btn {
+  position: absolute;
+
+  right: 10px;
+  top: 42%;
+
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: auto;
+
+  margin: 0;
+  padding: 5px;
+
+  border: none;
+
+  background: transparent;
+  color: #6b7280;
+
+  cursor: pointer;
+}
+
+.toggle-password-btn:hover {
+  background: transparent;
+  color: #120505;
+}
+
+.toggle-password-btn:active {
+  transform: translateY(-50%);
+}
+
+/* =========================
+   Login Button
+========================= */
+
+.login-submit-btn {
+  width: 100%;
+
+  padding: 13px;
+  margin-top: 5px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #120505;
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s,
+    transform 0.1s;
+}
+
+.login-submit-btn:hover {
+  background: #2a1010;
+}
+
+.login-submit-btn:active {
+  transform: scale(0.98);
+}
+
+.login-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================
+   Sign Up
+========================= */
+
+.login-signup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 5px;
+
+  margin-top: 22px;
+
+  color: #6b7280;
+
+  font-size: 14px;
+}
+
+.login-signup p {
+  margin: 0;
+}
+
+.login-signup a {
+  color: #120505;
+
+  font-weight: 600;
+
+  text-decoration: none;
+}
+
+.login-signup a:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 480px) {
+  .login-page {
+    padding: 20px 15px;
+  }
+
+  .login-container {
+    padding: 25px 20px;
+  }
+
+  .login-container header {
+    font-size: 26px;
+    margin-bottom: 25px;
+  }
+}

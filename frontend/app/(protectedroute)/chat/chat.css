@@ -1,0 +1,569 @@
+
+/* =========================
+   Chat Page
+========================= */
+
+.chat-page {
+  width: 100%;
+  height: calc(100vh - 64px);
+
+  display: flex;
+
+  background: #f9fafb;
+
+  overflow: hidden;
+}
+
+/* =========================
+   Chat Window
+========================= */
+
+.chat-window {
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #f9fafb;
+}
+
+/* =========================
+   Empty Chat
+========================= */
+
+.chat-empty {
+  width: 100%;
+  max-width: 420px;
+
+  margin: auto;
+  padding: 40px;
+
+  text-align: center;
+}
+
+.chat-empty-icon {
+  width: 72px;
+  height: 72px;
+
+  margin: 0 auto 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+
+  font-size: 30px;
+}
+
+.chat-empty h1 {
+  margin: 0;
+
+  color: #111827;
+
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.chat-empty p {
+  margin-top: 10px;
+
+  color: #6b7280;
+
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* =========================
+   Chat Header
+========================= */
+
+.chat-header {
+  height: 64px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 0 20px;
+
+  background: #ffffff;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.chat-header .user-avatar {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #111827;
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.chat-header h2 {
+  margin: 0;
+
+  color: #111827;
+
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* =========================
+   Messages Container
+========================= */
+
+.messages-container {
+  flex: 1;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  padding: 20px;
+
+  overflow-y: auto;
+}
+
+/* =========================
+   Scrollbar
+========================= */
+
+.messages-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messages-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.messages-container::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 10px;
+}
+
+/* =========================
+   Message Box
+========================= */
+
+.message-box {
+  width: 100%;
+
+  display: flex;
+  justify-content: flex-start;
+}
+
+.message-box.current-user {
+  justify-content: flex-end;
+}
+
+.message-content {
+  max-width: 65%;
+
+  padding: 10px 14px;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 14px 14px 14px 4px;
+
+  color: #111827;
+
+  font-size: 14px;
+  line-height: 1.5;
+
+  word-break: break-word;
+}
+
+.message-box.current-user .message-content {
+  background: #111827;
+
+  color: #ffffff;
+
+  border-color: #111827;
+
+  border-radius: 14px 14px 4px 14px;
+}
+
+/* =========================
+   Message Form
+========================= */
+
+.message-form {
+  width: 100%;
+  min-height: 72px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 12px 20px;
+
+  background: #ffffff;
+
+  border-top: 1px solid #e5e7eb;
+}
+
+/* =========================
+   Upload Button
+========================= */
+
+.message-form > button:first-child {
+  width: 44px;
+  height: 44px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 1px solid #d1d5db;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  color: #111827;
+
+  font-size: 24px;
+  font-weight: 400;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    transform 0.1s;
+}
+
+.message-form > button:first-child:hover {
+  background: #f3f4f6;
+
+  border-color: #9ca3af;
+}
+
+.message-form > button:first-child:active {
+  transform: scale(0.95);
+}
+
+/* =========================
+   Hidden File Input
+========================= */
+
+.message-form input[type="file"] {
+  display: none;
+}
+
+/* =========================
+   Message Input Wrapper
+========================= */
+
+.message-input-wrapper {
+  flex: 1;
+
+  min-width: 0;
+  min-height: 44px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 4px 8px 4px 14px;
+
+  border: 1px solid #d1d5db;
+
+  border-radius: 24px;
+
+  background: #f9fafb;
+
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+
+.message-input-wrapper:focus-within {
+  background: #ffffff;
+
+  border-color: #9ca3af;
+}
+
+/* =========================
+   Text Input
+========================= */
+
+.message-input-wrapper input[type="text"] {
+  flex: 1;
+
+  min-width: 0;
+
+  width: 100%;
+  height: 36px;
+
+  padding: 0 4px;
+
+  border: none;
+
+  outline: none;
+
+  background: transparent;
+
+  color: #111827;
+
+  font-size: 14px;
+}
+
+.message-input-wrapper input[type="text"]::placeholder {
+  color: #9ca3af;
+}
+
+/* =========================
+   Image Preview
+========================= */
+
+.image-preview {
+  position: relative;
+
+  width: 44px;
+  height: 44px;
+
+  flex-shrink: 0;
+}
+
+.image-preview img {
+  display: block;
+
+  width: 44px;
+  height: 44px;
+
+  object-fit: cover;
+
+  border-radius: 8px;
+
+  border: 1px solid #e5e7eb;
+}
+
+/* =========================
+   Remove Image
+========================= */
+
+.image-preview .remove-image {
+  position: absolute;
+
+  top: -7px;
+  right: -7px;
+
+  width: 20px;
+  height: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 2px solid #ffffff;
+
+  border-radius: 50%;
+
+  background: #111827;
+
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  z-index: 2;
+
+  transition: background 0.2s;
+}
+
+.image-preview .remove-image:hover {
+  background: #374151;
+}
+
+/* =========================
+   Send Button
+========================= */
+
+.message-form > button[type="submit"] {
+  height: 44px;
+
+  flex-shrink: 0;
+
+  padding: 0 20px;
+
+  border: none;
+
+  border-radius: 22px;
+
+  background: #111827;
+
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    opacity 0.2s,
+    transform 0.1s;
+}
+
+.message-form > button[type="submit"]:hover {
+  opacity: 0.9;
+}
+
+.message-form > button[type="submit"]:active {
+  transform: scale(0.97);
+}
+
+.message-form > button[type="submit"]:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+/* =========================
+   No Messages
+========================= */
+
+.messages-container > p {
+  margin: auto;
+
+  color: #9ca3af;
+
+  font-size: 14px;
+
+  text-align: center;
+}
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 768px) {
+  .chat-page {
+    position: relative;
+
+    height: calc(100vh - 64px);
+  }
+
+  .chat-window {
+    width: 100%;
+  }
+
+  .chat-empty {
+    padding: 30px 20px;
+  }
+
+  .chat-header {
+    height: 58px;
+
+    padding: 0 14px;
+  }
+
+  .messages-container {
+    padding: 14px;
+  }
+
+  /* Message Form */
+
+  .message-form {
+    min-height: 64px;
+
+    gap: 7px;
+
+    padding: 10px 12px;
+  }
+
+  /* Upload Button */
+
+  .message-form > button:first-child {
+    width: 40px;
+    height: 40px;
+
+    font-size: 22px;
+  }
+
+  /* Input Wrapper */
+
+  .message-input-wrapper {
+    min-height: 40px;
+
+    padding: 3px 8px 3px 12px;
+  }
+
+  .message-input-wrapper input[type="text"] {
+    height: 34px;
+
+    font-size: 14px;
+  }
+
+  /* Image */
+
+  .image-preview {
+    width: 38px;
+    height: 38px;
+  }
+
+  .image-preview img {
+    width: 38px;
+    height: 38px;
+  }
+
+  .image-preview .remove-image {
+    width: 18px;
+    height: 18px;
+
+    top: -6px;
+    right: -6px;
+
+    font-size: 12px;
+  }
+
+  /* Send Button */
+
+  .message-form > button[type="submit"] {
+    height: 40px;
+
+    padding: 0 15px;
+
+    font-size: 13px;
+  }
+
+  /* Message Bubble */
+
+  .message-content {
+    max-width: 80%;
+  }
+}
