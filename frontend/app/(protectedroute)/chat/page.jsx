@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -6,30 +5,45 @@ import Sidebar from "./sidebar";
 import MessageBox from "./messageBox";
 import "./chat.css";
 
-import {getChatMessages,sendChatMessage,subsCribeToMessage,} from "@/app/store/messageStore.js";
+import {
+  getChatMessages,
+  sendChatMessage,
+  subsCribeToMessage,
+} from "@/app/store/messageStore.js";
+
+import { useAuthStore } from "../../store/useAuthStore";
 
 export default function ChatPage() {
-  const [selectedUser, setSelectedUser] =
-    useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
 
-  const [messages, setMessages] =
-    useState([]);
+  const [messages, setMessages] = useState([]);
 
-  const [message, setMessage] =
-    useState("");
+  const [message, setMessage] = useState("");
 
-  const [loading, setLoading] =
-    useState(false);
+  const [loading, setLoading] = useState(false);
 
   // Image state
-  const [selectedImage, setSelectedImage] =
-    useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
 
-  const [imagePreview, setImagePreview] =
-    useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
 
-  const fileInputRef =
-    useRef(null);
+  const fileInputRef = useRef(null);
+
+  // =========================
+  // Online Users
+  // =========================
+
+  const { onlineUsers } = useAuthStore();
+
+  const normalizedOnlineUsers = Array.isArray(onlineUsers)
+    ? onlineUsers.map((id) => String(id))
+    : [];
+
+  const isSelectedUserOnline =
+    !!selectedUser?._id &&
+    normalizedOnlineUsers.includes(
+      String(selectedUser._id)
+    );
 
   // =========================
   // Get Messages
@@ -47,25 +61,22 @@ export default function ChatPage() {
       try {
         setLoading(true);
 
-        const data =
-          await getChatMessages(
-            selectedUser._id
-          );
+        const data = await getChatMessages(
+          selectedUser._id
+        );
 
         setMessages(data || []);
 
         // Subscribe AFTER messages are loaded
-        unsubscribe =
-          subsCribeToMessage(
-            selectedUser,
-            (newMessage) => {
-              setMessages((prev) => [
-                ...prev,
-                newMessage,
-              ]);
-            }
-          );
-
+        unsubscribe = subsCribeToMessage(
+          selectedUser,
+          (newMessage) => {
+            setMessages((prev) => [
+              ...prev,
+              newMessage,
+            ]);
+          }
+        );
       } catch (error) {
         console.error(
           "Failed to load messages:",
@@ -93,10 +104,7 @@ export default function ChatPage() {
 
   const handleUpload = () => {
     if (!selectedUser?._id) {
-      console.error(
-        "No user selected"
-      );
-
+      console.error("No user selected");
       return;
     }
 
@@ -108,8 +116,7 @@ export default function ChatPage() {
   // =========================
 
   const handleFileChange = (e) => {
-    const file =
-      e.target.files?.[0];
+    const file = e.target.files?.[0];
 
     if (!file) {
       return;
@@ -117,12 +124,9 @@ export default function ChatPage() {
 
     setSelectedImage(file);
 
-    const previewUrl =
-      URL.createObjectURL(file);
+    const previewUrl = URL.createObjectURL(file);
 
-    setImagePreview(
-      previewUrl
-    );
+    setImagePreview(previewUrl);
 
     e.target.value = "";
   };
@@ -133,9 +137,7 @@ export default function ChatPage() {
 
   const removeImage = () => {
     if (imagePreview) {
-      URL.revokeObjectURL(
-        imagePreview
-      );
+      URL.revokeObjectURL(imagePreview);
     }
 
     setSelectedImage(null);
@@ -146,16 +148,11 @@ export default function ChatPage() {
   // Send Message
   // =========================
 
-  const handleSendMessage = async (
-    e
-  ) => {
+  const handleSendMessage = async (e) => {
     e.preventDefault();
 
     if (!selectedUser?._id) {
-      console.error(
-        "No user selected"
-      );
-
+      console.error("No user selected");
       return;
     }
 
@@ -185,7 +182,6 @@ export default function ChatPage() {
       setMessage("");
 
       removeImage();
-
     } catch (error) {
       console.error(
         "Failed to send message:",
@@ -198,18 +194,18 @@ export default function ChatPage() {
 
   return (
     <main className="chat-page">
+
       <Sidebar
-        onSelectUser={
-          setSelectedUser
-        }
-        selectedUser={
-          selectedUser
-        }
+        onSelectUser={setSelectedUser}
+        selectedUser={selectedUser}
       />
 
       <section className="chat-window">
+
         {!selectedUser ? (
+
           <div className="chat-empty">
+
             <div className="chat-empty-icon">
               💬
             </div>
@@ -223,55 +219,99 @@ export default function ChatPage() {
               from the sidebar to
               start chatting.
             </p>
+
           </div>
+
         ) : (
+
           <>
-            {/* Chat Header */}
+
+            {/* =========================
+                Chat Header
+            ========================= */}
 
             <div className="chat-header">
+
               <div className="user-avatar">
                 {selectedUser.fullName
                   ?.charAt(0)
                   .toUpperCase()}
               </div>
 
-              <h2>
-                {selectedUser.fullName}
-              </h2>
+              <div className="chat-header-user-info">
+
+                <h2>
+                  {selectedUser.fullName}
+                </h2>
+
+                <span
+                  className={
+                    isSelectedUserOnline
+                      ? "online-status"
+                      : "offline-status"
+                  }
+                >
+                  <span
+                    className={
+                      isSelectedUserOnline
+                        ? "status-dot online-dot"
+                        : "status-dot offline-dot"
+                    }
+                  ></span>
+
+                  {isSelectedUserOnline
+                    ? "Online"
+                    : "Offline"}
+                </span>
+
+              </div>
+
             </div>
 
-            {/* Messages */}
+            {/* =========================
+                Messages
+            ========================= */}
 
             <div className="messages-container">
+
               {loading ? (
+
                 <p>
                   Loading messages...
                 </p>
+
               ) : messages.length === 0 ? (
+
                 <p>
                   No messages yet.
                 </p>
+
               ) : (
-                messages.map(
-                  (msg) => (
-                    <MessageBox
-                      key={msg._id}
-                      message={msg}
-                      isCurrentUser={
-                        String(
-                          msg.senderId
-                        ) !==
-                        String(
-                          selectedUser._id
-                        )
-                      }
-                    />
-                  )
-                )
+
+                messages.map((msg) => (
+
+                  <MessageBox
+                    key={msg._id}
+                    message={msg}
+                    isCurrentUser={
+                      String(
+                        msg.senderId
+                      ) !==
+                      String(
+                        selectedUser._id
+                      )
+                    }
+                  />
+
+                ))
+
               )}
+
             </div>
 
-            {/* Message Form */}
+            {/* =========================
+                Message Form
+            ========================= */}
 
             <form
               className="message-form"
@@ -279,6 +319,7 @@ export default function ChatPage() {
                 handleSendMessage
               }
             >
+
               <button
                 type="button"
                 onClick={
@@ -301,12 +342,13 @@ export default function ChatPage() {
               />
 
               <div className="message-input-wrapper">
+
                 {imagePreview && (
+
                   <div className="image-preview">
+
                     <img
-                      src={
-                        imagePreview
-                      }
+                      src={imagePreview}
                       alt="Selected"
                     />
 
@@ -319,7 +361,9 @@ export default function ChatPage() {
                     >
                       ×
                     </button>
+
                   </div>
+
                 )}
 
                 <input
@@ -332,6 +376,7 @@ export default function ChatPage() {
                   }
                   placeholder="Type a message..."
                 />
+
               </div>
 
               <button
@@ -344,10 +389,15 @@ export default function ChatPage() {
               >
                 Send
               </button>
+
             </form>
+
           </>
+
         )}
+
       </section>
+
     </main>
   );
 }

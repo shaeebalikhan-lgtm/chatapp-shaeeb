@@ -1,6 +1,7 @@
 import './messagebox.css';
 
 export default function MessageBox({ message, isCurrentUser }) {
+  console.log("CurrentUser:",isCurrentUser)
   return (
     <div
       className={`message-box ${

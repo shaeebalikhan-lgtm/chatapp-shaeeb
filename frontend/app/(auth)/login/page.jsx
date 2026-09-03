@@ -69,7 +69,6 @@ export default function LoginPage() {
       const success = await login(formData);
 
       if (success) {
-        toast.success("Login successful!");
         router.push("/chat");
       }
     } catch (error) {
