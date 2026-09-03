@@ -1,28 +1,28 @@
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken";
 
 export const generateToken = (userId, res) => {
     const token = jwt.sign(
         {
-            userId
+            userId,
         },
         process.env.JWT_SECRET,
         {
-            expiresIn: "7d"
+            expiresIn: "7d",
         }
-    )
+    );
 
     res.cookie("jwt", token, {
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7days
+        maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true,
-        sameSite: "strict"
-        //secure: process.env.NODE_ENV !== "development"
-    })
+
+        // IMPORTANT for Vercel frontend + Render backend
+        sameSite: "none",
+        secure: true,
+    });
 
     return token;
-}
+};
 
-
-export const verifyToken = (token)=>{
-    //console.log("token value:",jwt.verify(token.value,process.env.JWT_SECRET))
-    return jwt.verify(token,process.env.JWT_SECRET)
-}
+export const verifyToken = (token) => {
+    return jwt.verify(token, process.env.JWT_SECRET);
+};
