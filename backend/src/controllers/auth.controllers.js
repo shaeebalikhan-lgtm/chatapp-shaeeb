@@ -112,8 +112,8 @@ export const logout = async (req, res) => {
         // Match the options used when res.cookie() was created
         res.clearCookie("jwt", {
             httpOnly: true,
-            secure: process.env.NODE_ENV !== "development",
-            sameSite: "strict",
+            secure: true,
+            sameSite: "none",
         });
 
         return res.status(200).json({
